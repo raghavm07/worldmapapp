@@ -1,0 +1,14 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.grid .flagImage {
+  width: 180px;
+  height: 100px;
+  /* border: 2px solid black; */
+}
+.grid .details {
+  padding: 20px;
+  margin-top: -10px;
+}

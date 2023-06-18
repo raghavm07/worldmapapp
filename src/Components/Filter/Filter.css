@@ -1,0 +1,13 @@
+.filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 10px;
+}
+
+.filter .form-control input {
+  /* border: none; */
+  outline: none;
+  padding: 8px;
+  /* border-radius: 5px; */
+}
