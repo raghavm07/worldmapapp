@@ -46,7 +46,6 @@ const Map = (props) => {
 
     useEffect(() => {
       if (selectPosition) {
-        console.log(selectPosition);
         map.setView(
           L.latLng(selectPosition?.lat, selectPosition?.lon),
           map.getZoom(),
@@ -55,7 +54,7 @@ const Map = (props) => {
           }
         );
       }
-    }, [selectPosition, map]);
+    }, [selectPosition]);
 
     return null;
   }

@@ -40,7 +40,7 @@ export default function SearchBox(props) {
     fetch(`${NOMINATIM_BASE_URL}${queryString}`, requestOptions)
       .then((response) => response.text())
       .then((result) => {
-        console.log("from nomimatim", JSON.parse(result));
+        // console.log("from nomimatim", JSON.parse(result));
 
         setListPlace(JSON.parse(result));
       })
