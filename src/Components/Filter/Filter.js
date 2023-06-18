@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import {
   OutlinedInput,
+  Button,
   List,
   ListItemIcon,
   ListItemText,
@@ -38,7 +39,7 @@ export default function SearchBox(props) {
     fetch(`${NOMINATIM_BASE_URL}${queryString}`, requestOptions)
       .then((response) => response.text())
       .then((result) => {
-        setListPlace(JSON.parse(result));
+        setListPlace(JSON.parse(result).slice(0, 3));
       })
       .catch((err) => console.log("err: ", err));
   };
@@ -60,22 +61,15 @@ export default function SearchBox(props) {
             value={searchText}
             onChange={(event) => {
               setSearchText(event.target.value);
-              SearchResult();
+              // SearchResult();
             }}
             onClick={SearchResult}
           />
-        </div>
-        {/* <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            padding: "0px 20px",
-          }}
-        >
+
           <Button variant="contained" color="primary" onClick={SearchResult}>
             Search
           </Button>
-        </div> */}
+        </div>
       </div>
       <div>
         <List component="nav" aria-label="main mailbox folders">
