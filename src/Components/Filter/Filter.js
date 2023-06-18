@@ -26,7 +26,7 @@ export default function SearchBox(props) {
   const [listPlace, setListPlace] = useState([]);
 
   const SearchResult = async () => {
-    // SearchComment
+    // Search
 
     const params = {
       q: searchText,
@@ -41,6 +41,7 @@ export default function SearchBox(props) {
     };
     // Reset listPlace and error message
     setListPlace([]);
+    setSelectPosition(null);
     toast.dismiss(); // Clear any existing error toasts
 
     // Perform the search only if the searchText is not empty
