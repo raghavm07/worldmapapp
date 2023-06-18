@@ -46,15 +46,11 @@ const Map = (props) => {
 
     useEffect(() => {
       if (selectPosition) {
-        map.setView(
-          L.latLng(selectPosition?.lat, selectPosition?.lon),
-          map.getZoom(),
-          {
-            animate: true,
-          }
-        );
+        map.flyTo([selectPosition.lat, selectPosition.lon], 5, {
+          duration: 1, // Animation duration in seconds
+        });
       }
-    }, [selectPosition]);
+    }, [selectPosition, map]);
 
     return null;
   }
@@ -63,7 +59,6 @@ const Map = (props) => {
     <>
       <MapContainer center={[28.7, 77.1]} zoom={2} scrollWheelZoom={false}>
         <TileLayer url="https://api.maptiler.com/maps/basic-v2/256/{z}/{x}/{y}.png?key=qqzfBx2XgGGoSibOKTp1" />
-
         {selectPosition && (
           <Marker
             position={locationSelection}
