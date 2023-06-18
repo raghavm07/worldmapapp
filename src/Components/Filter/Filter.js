@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   OutlinedInput,
@@ -25,6 +27,7 @@ export default function SearchBox(props) {
 
   const SearchResult = async () => {
     // SearchComment
+
     const params = {
       q: searchText,
       format: "json",
@@ -36,12 +39,30 @@ export default function SearchBox(props) {
       method: "GET",
       redirect: "follow",
     };
-    fetch(`${NOMINATIM_BASE_URL}${queryString}`, requestOptions)
-      .then((response) => response.text())
-      .then((result) => {
-        setListPlace(JSON.parse(result).slice(0, 3));
-      })
-      .catch((err) => console.log("err: ", err));
+    // Reset listPlace and error message
+    setListPlace([]);
+    toast.dismiss(); // Clear any existing error toasts
+
+    // Perform the search only if the searchText is not empty
+    if (searchText.trim() !== "") {
+      fetch(`${NOMINATIM_BASE_URL}${queryString}`, requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.length === 0) {
+            toast.error("No results found.");
+            setListPlace([]);
+          } else {
+            setListPlace(result.slice(0, 3)); // Limiting the results to 3
+          }
+        })
+        .catch((err) => {
+          console.log("err: ", err);
+          toast.error("An error occurred while fetching results.");
+          setListPlace([]);
+        });
+    } else {
+      toast.error("Please enter something.");
+    }
   };
 
   return (
@@ -63,7 +84,7 @@ export default function SearchBox(props) {
               setSearchText(event.target.value);
               // SearchResult();
             }}
-            onClick={SearchResult}
+            //  onClick={SearchResult}
           />
 
           <Button variant="contained" color="primary" onClick={SearchResult}>
@@ -97,6 +118,7 @@ export default function SearchBox(props) {
           })}
         </List>
       </div>
+      <ToastContainer />
     </div>
   );
 }
