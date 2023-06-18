@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 
 import {
   OutlinedInput,
-  Button,
   List,
-  ListItem,
   ListItemIcon,
   ListItemText,
   Divider,
@@ -13,6 +10,7 @@ import {
 } from "@mui/material";
 
 const NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/search?";
+
 const params = {
   q: "",
   format: "json",
@@ -40,8 +38,6 @@ export default function SearchBox(props) {
     fetch(`${NOMINATIM_BASE_URL}${queryString}`, requestOptions)
       .then((response) => response.text())
       .then((result) => {
-        // console.log("from nomimatim", JSON.parse(result));
-
         setListPlace(JSON.parse(result));
       })
       .catch((err) => console.log("err: ", err));

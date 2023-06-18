@@ -1,12 +1,6 @@
 import { useEffect, useRef } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  Popup,
-  useMap,
-  Marker,
-  GeoJSON,
-} from "react-leaflet";
+
+import { MapContainer, TileLayer, Popup, useMap, Marker } from "react-leaflet";
 import "./Map.css";
 import "leaflet/dist/leaflet.css";
 
@@ -15,6 +9,8 @@ const icon = L.icon({
   iconUrl: "./marker.png",
   iconSize: [38, 38],
 });
+
+const FLAG_API_BASE_URL = "https://flagcdn.com";
 
 const Map = (props) => {
   const { selectPosition } = props;
@@ -46,7 +42,7 @@ const Map = (props) => {
 
     useEffect(() => {
       if (selectPosition) {
-        map.flyTo([selectPosition.lat, selectPosition.lon], 5, {
+        map.flyTo([selectPosition.lat, selectPosition.lon], 7, {
           duration: 1, // Animation duration in seconds
         });
       }
@@ -70,6 +66,16 @@ const Map = (props) => {
             }}
           >
             <Popup className="popup" ref={popupRef}>
+              <img
+                src={`${FLAG_API_BASE_URL}/${selectPosition?.address?.country_code.toLowerCase()}.svg`}
+                alt="Country Flag"
+                style={{
+                  width: 40,
+                  height: 40,
+                  // alignItems: "center",
+                  // justifyContent: "center",
+                }}
+              />
               <h5>Country Name: {selectPosition.address.country}</h5>
               <h5>Country Code: {selectPosition.address.country_code}</h5>
               <h5> State: {selectPosition.address.state}</h5>
